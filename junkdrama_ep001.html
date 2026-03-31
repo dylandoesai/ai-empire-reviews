@@ -37,7 +37,7 @@ The pipeline will send me another review notification.</div>
     fetch('https://ntfy.sh/ai-empire-dylan-inbox', {
         method: 'POST',
         headers: {'Title': 'Pipeline Response'},
-        body: 'REJECT junkdrama_ep001_v4'
+        body: 'REJECT junkdrama_ep001_v5'
     }).then(function() {
         document.getElementById('status').textContent = 'Rejection sent! Copy prompt below.';
         document.getElementById('status').style.color = '#00ff88';
