@@ -14,14 +14,14 @@ h2 { color: #60a5fa; font-size: 16px; text-align: center; }
 </style>
 </head><body>
 <h1>REJECTED</h1>
-<h2>She Heard Everything | JunkDrama EP001</h2>
+<h2>She Heard Everything</h2>
 <div class="status" id="status">Sending rejection...</div>
 <p>Copy the prompt below and paste into Claude Code:</p>
 <div class="prompt-box" id="prompt">I need to fix a rejected YouTube Short for @junkdrama.
 
 Channel: junkdrama
 Episode: EP001
-Topic: She Heard Everything | JunkDrama EP001
+Topic: She Heard Everything
 Episode directory: channels/junkdrama/episodes/ep001
 
 I&#x27;m going to tell you what I didn&#x27;t like. After I do:
@@ -37,7 +37,7 @@ The pipeline will send me another review notification.</div>
     fetch('https://ntfy.sh/ai-empire-dylan-inbox', {
         method: 'POST',
         headers: {'Title': 'Pipeline Response'},
-        body: 'REJECT junkdrama_ep001_v5'
+        body: 'REJECT junkdrama_ep001_standalone'
     }).then(function() {
         document.getElementById('status').textContent = 'Rejection sent! Copy prompt below.';
         document.getElementById('status').style.color = '#00ff88';
