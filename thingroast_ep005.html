@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Review thingroast EP005</title>
+<style>
+body { font-family: -apple-system, sans-serif; padding: 20px; background: #1a1a2e; color: #eee; max-width: 600px; margin: 0 auto; }
+h1 { color: #00bfff; font-size: 26px; text-align: center; }
+h2 { color: #60a5fa; font-size: 16px; text-align: center; }
+video { width: 100%; border-radius: 12px; margin: 15px 0; }
+.info { background: #0f3460; padding: 15px; border-radius: 8px; font-size: 14px; line-height: 1.6; }
+.btn { display: block; padding: 18px; margin: 12px 0; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 20px; cursor: pointer; border: none; text-align: center; width: 100%; box-sizing: border-box; }
+.btn-approve { background: #00ff88; color: #1a1a2e; }
+.btn-reject { background: #ff4444; color: white; }
+.status { color: #ffd93d; font-size: 18px; margin-top: 10px; min-height: 30px; text-align: center; font-weight: bold; }
+</style>
+</head><body>
+<h1>@thingroast EP005</h1>
+<h2>Your Couch Cushions Found The Receipts</h2>
+<video controls playsinline preload="auto">
+<source src="https://n.uguu.se/TfnzKkVH.mp4" type="video/mp4">
+</video>
+<div class="info">
+<b>Duration:</b> 26.0s | <b>Size:</b> 3.6MB<br>
+<b>Captions:</b> 15 groups, Whisper word-level aligned<br>
+<b>Hook:</b> THREE RECEIPTS.<br>
+<b>Score:</b> 93/100<br>
+<b>CTA:</b> "Follow Thing Roast. Your couch knows everything." — fully voiced
+</div>
+<div class="status" id="status"></div>
+<button class="btn btn-approve" onclick="respond('APPROVE')">APPROVE</button>
+<a class="btn btn-reject" href="https://dylandoesai.github.io/ai-empire-reviews/thingroast_ep005_reject.html">REJECT</a>
+<script>
+function respond(decision) {
+    document.getElementById('status').textContent = 'Sending ' + decision + '...';
+    fetch('https://ntfy.sh/ai-empire-dylan-inbox', {
+        method: 'POST',
+        headers: {'Title': 'Pipeline Response'},
+        body: decision + ' thingroast_ep005_standalone'
+    }).then(function() {
+        document.getElementById('status').textContent = decision + ' sent!';
+        document.getElementById('status').style.color = '#00ff88';
+    }).catch(function() {
+        document.getElementById('status').textContent = 'Failed to send — tap on ntfy directly.';
+        document.getElementById('status').style.color = '#ff4444';
+    });
+}
+</script>
+</body></html>
