@@ -1,86 +1,51 @@
 <!DOCTYPE html>
 <html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Review babyspillz EP002 (FIXED)</title>
+<title>Review babyspillz EP002</title>
 <style>
 body { font-family: -apple-system, sans-serif; padding: 20px; background: #1a1a2e; color: #eee; max-width: 600px; margin: 0 auto; }
-h1 { color: #60a5fa; font-size: 26px; text-align: center; }
-h2 { color: #ffd93d; font-size: 16px; text-align: center; }
-.video-container { margin: 20px 0; text-align: center; }
-video { width: 100%; max-width: 400px; border-radius: 12px; }
+h1 { color: #ff4444; font-size: 26px; text-align: center; }
+h2 { color: #60a5fa; font-size: 16px; text-align: center; }
+.prompt-box { background: #0f3460; padding: 15px; border-radius: 8px; white-space: pre-wrap; font-family: monospace; font-size: 13px; line-height: 1.4; user-select: all; }
 .btn { display: block; padding: 18px; margin: 12px 0; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 20px; cursor: pointer; border: none; text-align: center; width: 100%; box-sizing: border-box; }
-.btn-approve { background: #00ff88; color: #1a1a2e; }
-.btn-reject { background: #ff4444; color: white; }
 .btn-copy { background: #00bfff; color: #1a1a2e; }
 .btn-claude { background: #6c5ce7; color: white; }
 .status { color: #ffd93d; font-size: 18px; margin-top: 10px; min-height: 30px; text-align: center; font-weight: bold; }
-.info { background: #0f3460; padding: 15px; border-radius: 8px; font-size: 14px; line-height: 1.6; margin: 15px 0; }
-.prompt-box { background: #0f3460; padding: 15px; border-radius: 8px; white-space: pre-wrap; font-family: monospace; font-size: 13px; line-height: 1.4; user-select: all; display: none; }
 </style>
 </head><body>
-<h1>babyspillz EP002</h1>
-<h2>FIXED - Captions + Hook</h2>
-<div class="video-container">
-  <video controls playsinline preload="metadata">
-    <source src="https://o.uguu.se/LQPZgSij.mp4" type="video/mp4">
-    Your browser does not support video playback.
-  </video>
-</div>
-<div class="info">
-  <strong>Channel:</strong> babyspillz<br>
-  <strong>Episode:</strong> EP002<br>
-  <strong>Status:</strong> Fixed version (captions + hook)<br>
-  <strong>Review ID:</strong> babyspillz_ep002_standalone
-</div>
-<div class="status" id="status">Watch the video, then approve or reject below.</div>
-<button class="btn btn-approve" onclick="approve()">Approve</button>
-<button class="btn btn-reject" onclick="showReject()">Reject</button>
-<div id="reject-section" style="display:none; margin-top: 20px;">
+<h1>REJECTED</h1>
+<h2>untitled</h2>
+<div class="status" id="status">Sending rejection...</div>
 <p>Copy the prompt below and paste into Claude Code:</p>
-<div class="prompt-box" id="prompt" style="display:block;">I need to fix a rejected YouTube Short for @babyspillz.
+<div class="prompt-box" id="prompt">I need to fix a rejected YouTube Short for @babyspillz.
 
 Channel: babyspillz
 Episode: EP002
-Episode directory: /Users/dylanireland/Desktop/ai-empire/channels/babyspillz/episodes/ep002
+Topic: untitled
+Episode directory: channels/babyspillz/episodes/ep002
 
-I'm going to tell you what I didn't like. After I do:
+I&#x27;m going to tell you what I didn&#x27;t like. After I do:
 1. Rewrite script.json with the fixes
 2. Re-produce: venv/bin/python3 channels/produce.py --channel babyspillz --episode 2
 The pipeline will send me another review notification.</div>
 <br>
 <button class="btn btn-copy" onclick="copyPrompt()">Copy Prompt</button>
 <a class="btn btn-claude" href="https://claude.ai/new" target="_blank">Open Claude</a>
-</div>
 <script>
-function approve() {
-    fetch('https://ntfy.sh/ai-empire-dylan-inbox', {
-        method: 'POST',
-        headers: {'Title': 'Pipeline Response'},
-        body: 'APPROVE babyspillz_ep002_standalone'
-    }).then(function() {
-        document.getElementById('status').textContent = 'APPROVED! Uploading to YouTube...';
-        document.getElementById('status').style.color = '#00ff88';
-    }).catch(function() {
-        document.getElementById('status').textContent = 'Failed to send approval. Try ntfy app.';
-        document.getElementById('status').style.color = '#ff4444';
-    });
-}
-
-function showReject() {
+// Auto-send REJECT to ntfy inbox when page opens
+(function() {
     fetch('https://ntfy.sh/ai-empire-dylan-inbox', {
         method: 'POST',
         headers: {'Title': 'Pipeline Response'},
         body: 'REJECT babyspillz_ep002_standalone'
     }).then(function() {
-        document.getElementById('status').textContent = 'REJECTED. Copy prompt below to fix.';
-        document.getElementById('status').style.color = '#ff4444';
-        document.getElementById('reject-section').style.display = 'block';
+        document.getElementById('status').textContent = 'Rejection sent! Copy prompt below.';
+        document.getElementById('status').style.color = '#00ff88';
     }).catch(function() {
-        document.getElementById('status').textContent = 'Failed to send rejection. Try ntfy app.';
+        document.getElementById('status').textContent = 'Auto-reject failed — tap Reject on ntfy too.';
         document.getElementById('status').style.color = '#ff4444';
-        document.getElementById('reject-section').style.display = 'block';
     });
-}
+})();
 
 function copyPrompt() {
     navigator.clipboard.writeText(document.getElementById('prompt').textContent)
