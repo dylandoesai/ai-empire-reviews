@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Review boneroasts EP012</title>
+<style>
+body { font-family: -apple-system, sans-serif; padding: 20px; background: #1a1a2e; color: #eee; max-width: 600px; margin: 0 auto; }
+h1 { color: #ff4444; font-size: 26px; text-align: center; }
+h2 { color: #60a5fa; font-size: 16px; text-align: center; }
+.prompt-box { background: #0f3460; padding: 15px; border-radius: 8px; white-space: pre-wrap; font-family: monospace; font-size: 13px; line-height: 1.4; user-select: all; }
+.btn { display: block; padding: 18px; margin: 12px 0; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 20px; cursor: pointer; border: none; text-align: center; width: 100%; box-sizing: border-box; }
+.btn-copy { background: #00bfff; color: #1a1a2e; }
+.btn-claude { background: #6c5ce7; color: white; }
+.status { color: #ffd93d; font-size: 18px; margin-top: 10px; min-height: 30px; text-align: center; font-weight: bold; }
+</style>
+</head><body>
+<h1>REJECTED</h1>
+<h2>untitled</h2>
+<div class="status" id="status">Sending rejection...</div>
+<p>Copy the prompt below and paste into Claude Code:</p>
+<div class="prompt-box" id="prompt">I need to fix a rejected YouTube Short for @boneroasts.
+
+Channel: boneroasts
+Episode: EP012
+Topic: untitled
+Episode directory: channels/boneroasts/episodes/ep012
+
+I&#x27;m going to tell you what I didn&#x27;t like. After I do:
+1. Rewrite script.json with the fixes
+2. Re-produce: venv/bin/python3 channels/produce.py --channel boneroasts --episode 12
+The pipeline will send me another review notification.</div>
+<br>
+<button class="btn btn-copy" onclick="copyPrompt()">Copy Prompt</button>
+<a class="btn btn-claude" href="https://claude.ai/new" target="_blank">Open Claude</a>
+<script>
+// Auto-send REJECT to ntfy inbox when page opens
+(function() {
+    fetch('https://ntfy.sh/ai-empire-dylan-inbox', {
+        method: 'POST',
+        headers: {'Title': 'Pipeline Response'},
+        body: 'REJECT boneroasts_ep012_standalone'
+    }).then(function() {
+        document.getElementById('status').textContent = 'Rejection sent! Copy prompt below.';
+        document.getElementById('status').style.color = '#00ff88';
+    }).catch(function() {
+        document.getElementById('status').textContent = 'Auto-reject failed — tap Reject on ntfy too.';
+        document.getElementById('status').style.color = '#ff4444';
+    });
+})();
+
+function copyPrompt() {
+    navigator.clipboard.writeText(document.getElementById('prompt').textContent)
+        .then(function() { document.getElementById('status').textContent = 'Copied!'; })
+        .catch(function() {
+            var range = document.createRange();
+            range.selectNode(document.getElementById('prompt'));
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            document.getElementById('status').textContent = 'Copied!';
+        });
+}
+</script>
+</body></html>
