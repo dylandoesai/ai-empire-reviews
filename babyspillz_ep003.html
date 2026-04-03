@@ -6,46 +6,90 @@
 body { font-family: -apple-system, sans-serif; padding: 20px; background: #1a1a2e; color: #eee; max-width: 600px; margin: 0 auto; }
 h1 { color: #ff4444; font-size: 26px; text-align: center; }
 h2 { color: #60a5fa; font-size: 16px; text-align: center; }
-.prompt-box { background: #0f3460; padding: 15px; border-radius: 8px; white-space: pre-wrap; font-family: monospace; font-size: 13px; line-height: 1.4; user-select: all; }
-.btn { display: block; padding: 18px; margin: 12px 0; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 20px; cursor: pointer; border: none; text-align: center; width: 100%; box-sizing: border-box; }
-.btn-copy { background: #00bfff; color: #1a1a2e; }
-.btn-claude { background: #6c5ce7; color: white; }
 .status { color: #ffd93d; font-size: 18px; margin-top: 10px; min-height: 30px; text-align: center; font-weight: bold; }
+textarea { width: 100%; height: 120px; padding: 14px; border-radius: 10px; border: 2px solid #60a5fa; background: #0f3460; color: #eee; font-size: 16px; font-family: -apple-system, sans-serif; resize: vertical; box-sizing: border-box; }
+textarea::placeholder { color: #7a8baa; }
+.btn { display: block; padding: 18px; margin: 12px 0; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 20px; cursor: pointer; border: none; text-align: center; width: 100%; box-sizing: border-box; }
+.btn-fix { background: #ff4444; color: white; }
+.btn-fix:disabled { background: #555; color: #999; }
+.info { background: #0f3460; padding: 12px; border-radius: 8px; font-size: 13px; line-height: 1.4; margin-top: 16px; color: #7a8baa; }
+details { margin-top: 16px; }
+summary { color: #60a5fa; cursor: pointer; font-size: 14px; }
+.prompt-box { background: #0f3460; padding: 15px; border-radius: 8px; white-space: pre-wrap; font-family: monospace; font-size: 12px; line-height: 1.4; user-select: all; margin-top: 8px; }
+.btn-copy { background: #0f3460; color: #60a5fa; border: 1px solid #60a5fa; padding: 12px; font-size: 14px; }
 </style>
 </head><body>
 <h1>REJECTED</h1>
-<h2>baby catches mom texting her ex at 2am</h2>
+<h2>untitled</h2>
 <div class="status" id="status">Sending rejection...</div>
-<p>Copy the prompt below and paste into Claude Code:</p>
+
+<p style="text-align:center; margin-bottom:8px;">What needs to be fixed?</p>
+<textarea id="feedback" placeholder="e.g. captions out of sync, character holding a drink in scene 2, background is wrong..."></textarea>
+<button class="btn btn-fix" id="submitBtn" onclick="submitFix()">Submit Fix</button>
+
+<details>
+<summary>Advanced: CLI fallback (if Submit doesn't work)</summary>
 <div class="prompt-box" id="prompt">I need to fix a rejected YouTube Short for @babyspillz.
 
+Job ID: babyspillz_ep003_standalone
 Channel: babyspillz
 Episode: EP003
-Topic: baby catches mom texting her ex at 2am
-Episode directory: /Users/dylanireland/Desktop/ai-empire/channels/babyspillz/episodes/ep003
+Topic: untitled
+Episode directory: channels/babyspillz/episodes/ep003
 
-I&#x27;m going to tell you what I didn&#x27;t like. After I do:
-1. Rewrite script.json with the fixes
-2. Re-produce: venv/bin/python3 channels/produce.py --channel babyspillz --episode 3
-The pipeline will send me another review notification.</div>
-<br>
-<button class="btn btn-copy" onclick="copyPrompt()">Copy Prompt</button>
-<a class="btn btn-claude" href="https://claude.ai/new" target="_blank">Open Claude</a>
+I&#x27;m going to tell you what I didn&#x27;t like. After I do, run this command to queue the fix:
+
+cd ~/Desktop/ai-empire &amp;&amp; venv/bin/python3 pipeline/cli.py fix babyspillz_ep003_standalone &quot;PASTE MY FEEDBACK HERE&quot;
+
+The daemon will pick it up, rewrite the script with my feedback, re-produce the video, and send me another review notification.</div>
+<button class="btn btn-copy" onclick="copyPrompt()">Copy Prompt for Claude Code</button>
+</details>
 <script>
+var NTFY = 'https://ntfy.sh/ai-empire-dylan-inbox';
+var JOB_ID = 'babyspillz_ep003_standalone';
+
 // Auto-send REJECT to ntfy inbox when page opens
 (function() {
-    fetch('https://ntfy.sh/ai-empire-dylan-inbox', {
+    fetch(NTFY, {
         method: 'POST',
         headers: {'Title': 'Pipeline Response'},
-        body: 'REJECT baby_003_755f'
+        body: 'REJECT babyspillz_ep003_standalone'
     }).then(function() {
-        document.getElementById('status').textContent = 'Rejection sent! Copy prompt below.';
+        document.getElementById('status').textContent = 'Rejected! Tell me what to fix:';
         document.getElementById('status').style.color = '#00ff88';
     }).catch(function() {
-        document.getElementById('status').textContent = 'Auto-reject failed — tap Reject on ntfy too.';
+        document.getElementById('status').textContent = 'Auto-reject may have failed. Submit feedback below anyway.';
         document.getElementById('status').style.color = '#ff4444';
     });
 })();
+
+function submitFix() {
+    var fb = document.getElementById('feedback').value.trim();
+    if (!fb) {
+        document.getElementById('status').textContent = 'Type your feedback first!';
+        document.getElementById('status').style.color = '#ff4444';
+        return;
+    }
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    // Format: FIX {job_id} {feedback} — daemon auto-detects fix type
+    fetch(NTFY, {
+        method: 'POST',
+        headers: {'Title': 'Pipeline Response'},
+        body: 'FIX ' + JOB_ID + ' ' + fb
+    }).then(function() {
+        document.getElementById('status').textContent = 'Fix submitted! Daemon will handle it automatically.';
+        document.getElementById('status').style.color = '#00ff88';
+        btn.textContent = 'Submitted';
+        document.getElementById('feedback').disabled = true;
+    }).catch(function() {
+        document.getElementById('status').textContent = 'Failed to send — use CLI fallback below.';
+        document.getElementById('status').style.color = '#ff4444';
+        btn.disabled = false;
+        btn.textContent = 'Submit Fix';
+    });
+}
 
 function copyPrompt() {
     navigator.clipboard.writeText(document.getElementById('prompt').textContent)
