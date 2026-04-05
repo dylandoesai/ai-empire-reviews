@@ -48,13 +48,20 @@ The daemon will pick it up, rewrite the script with my feedback, re-produce the 
 var NTFY = 'https://ntfy.sh/ai-empire-dylan-inbox';
 var JOB_ID = 'bone_018_86ce';
 
-// Auto-send REJECT to ntfy inbox when page opens
+// Auto-send REJECT to ntfy inbox when page opens — ONCE per job (localStorage guard)
 (function() {
+    var rejectKey = 'rejected_' + JOB_ID;
+    if (localStorage.getItem(rejectKey)) {
+        document.getElementById('status').textContent = 'Already rejected. Submit feedback below if needed.';
+        document.getElementById('status').style.color = '#00ff88';
+        return;
+    }
     fetch(NTFY, {
         method: 'POST',
         headers: {'Title': 'Pipeline Response'},
         body: 'REJECT bone_018_86ce'
     }).then(function() {
+        localStorage.setItem(rejectKey, Date.now());
         document.getElementById('status').textContent = 'Rejected! Tell me what to fix:';
         document.getElementById('status').style.color = '#00ff88';
     }).catch(function() {
