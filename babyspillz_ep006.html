@@ -35,7 +35,7 @@ Job ID: baby_006_13ac
 Channel: babyspillz
 Episode: EP006
 Topic: Baby Caught Mom Adding &quot;Single&quot; Back to Her Instagram Bio While Dad Was in the Next Room
-Episode directory: /Users/dylanireland/Desktop/ai-empire/channels/babyspillz/episodes/ep006
+Episode directory: channels/babyspillz/episodes/ep006
 
 I&#x27;m going to tell you what I didn&#x27;t like. After I do, run this command to queue the fix:
 
@@ -48,13 +48,20 @@ The daemon will pick it up, rewrite the script with my feedback, re-produce the 
 var NTFY = 'https://ntfy.sh/ai-empire-dylan-inbox';
 var JOB_ID = 'baby_006_13ac';
 
-// Auto-send REJECT to ntfy inbox when page opens
+// Auto-send REJECT to ntfy inbox when page opens — ONCE per job (localStorage guard)
 (function() {
+    var rejectKey = 'rejected_' + JOB_ID;
+    if (localStorage.getItem(rejectKey)) {
+        document.getElementById('status').textContent = 'Already rejected. Submit feedback below if needed.';
+        document.getElementById('status').style.color = '#00ff88';
+        return;
+    }
     fetch(NTFY, {
         method: 'POST',
         headers: {'Title': 'Pipeline Response'},
         body: 'REJECT baby_006_13ac'
     }).then(function() {
+        localStorage.setItem(rejectKey, Date.now());
         document.getElementById('status').textContent = 'Rejected! Tell me what to fix:';
         document.getElementById('status').style.color = '#00ff88';
     }).catch(function() {
