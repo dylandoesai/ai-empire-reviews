@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Review babyspillz EP007</title>
+<style>
+body { font-family: -apple-system, sans-serif; padding: 20px; background: #1a1a2e; color: #eee; max-width: 600px; margin: 0 auto; }
+h1 { color: #ff4444; font-size: 26px; text-align: center; }
+h2 { color: #60a5fa; font-size: 16px; text-align: center; }
+.status { color: #ffd93d; font-size: 18px; margin-top: 10px; min-height: 30px; text-align: center; font-weight: bold; }
+textarea { width: 100%; height: 120px; padding: 14px; border-radius: 10px; border: 2px solid #60a5fa; background: #0f3460; color: #eee; font-size: 16px; font-family: -apple-system, sans-serif; resize: vertical; box-sizing: border-box; }
+textarea::placeholder { color: #7a8baa; }
+.btn { display: block; padding: 18px; margin: 12px 0; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 20px; cursor: pointer; border: none; text-align: center; width: 100%; box-sizing: border-box; }
+.btn-fix { background: #ff4444; color: white; }
+.btn-fix:disabled { background: #555; color: #999; }
+.info { background: #0f3460; padding: 12px; border-radius: 8px; font-size: 13px; line-height: 1.4; margin-top: 16px; color: #7a8baa; }
+details { margin-top: 16px; }
+summary { color: #60a5fa; cursor: pointer; font-size: 14px; }
+.prompt-box { background: #0f3460; padding: 15px; border-radius: 8px; white-space: pre-wrap; font-family: monospace; font-size: 12px; line-height: 1.4; user-select: all; margin-top: 8px; }
+.btn-copy { background: #0f3460; color: #60a5fa; border: 1px solid #60a5fa; padding: 12px; font-size: 14px; }
+</style>
+</head><body>
+<h1>REJECTED</h1>
+<h2>Baby exposes that Mom has been ordering DoorDash to the neighbor&#x27;s porch so Dad thinks she&#x27;s been cooking all week</h2>
+<div class="status" id="status">Sending rejection...</div>
+
+<p style="text-align:center; margin-bottom:8px;">What needs to be fixed?</p>
+<textarea id="feedback" placeholder="e.g. captions out of sync, character holding a drink in scene 2, background is wrong..."></textarea>
+<button class="btn btn-fix" id="submitBtn" onclick="submitFix()">Submit Fix</button>
+
+<details>
+<summary>Advanced: CLI fallback (if Submit doesn't work)</summary>
+<div class="prompt-box" id="prompt">I need to fix a rejected YouTube Short for @babyspillz.
+
+Job ID: baby_007_14d0
+Channel: babyspillz
+Episode: EP007
+Topic: Baby exposes that Mom has been ordering DoorDash to the neighbor&#x27;s porch so Dad thinks she&#x27;s been cooking all week
+Episode directory: /Users/dylanireland/Desktop/ai-empire/channels/babyspillz/episodes/ep007
+
+I&#x27;m going to tell you what I didn&#x27;t like. After I do, run this command to queue the fix:
+
+cd ~/Desktop/ai-empire &amp;&amp; venv/bin/python3 pipeline/cli.py fix baby_007_14d0 &quot;PASTE MY FEEDBACK HERE&quot;
+
+The daemon will pick it up, rewrite the script with my feedback, re-produce the video, and send me another review notification.</div>
+<button class="btn btn-copy" onclick="copyPrompt()">Copy Prompt for Claude Code</button>
+</details>
+<script>
+var NTFY = 'https://ntfy.sh/ai-empire-dylan-inbox';
+var JOB_ID = 'baby_007_14d0';
+
+// Auto-send REJECT to ntfy inbox when page opens — ONCE per job (localStorage guard)
+(function() {
+    var rejectKey = 'rejected_' + JOB_ID;
+    if (localStorage.getItem(rejectKey)) {
+        document.getElementById('status').textContent = 'Already rejected. Submit feedback below if needed.';
+        document.getElementById('status').style.color = '#00ff88';
+        return;
+    }
+    fetch(NTFY, {
+        method: 'POST',
+        headers: {'Title': 'Pipeline Response'},
+        body: 'REJECT baby_007_14d0'
+    }).then(function() {
+        localStorage.setItem(rejectKey, Date.now());
+        document.getElementById('status').textContent = 'Rejected! Tell me what to fix:';
+        document.getElementById('status').style.color = '#00ff88';
+    }).catch(function() {
+        document.getElementById('status').textContent = 'Auto-reject may have failed. Submit feedback below anyway.';
+        document.getElementById('status').style.color = '#ff4444';
+    });
+})();
+
+function submitFix() {
+    var fb = document.getElementById('feedback').value.trim();
+    if (!fb) {
+        document.getElementById('status').textContent = 'Type your feedback first!';
+        document.getElementById('status').style.color = '#ff4444';
+        return;
+    }
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    // Format: FIX {job_id} {feedback} — daemon auto-detects fix type
+    fetch(NTFY, {
+        method: 'POST',
+        headers: {'Title': 'Pipeline Response'},
+        body: 'FIX ' + JOB_ID + ' ' + fb
+    }).then(function() {
+        document.getElementById('status').textContent = 'Fix submitted! Daemon will handle it automatically.';
+        document.getElementById('status').style.color = '#00ff88';
+        btn.textContent = 'Submitted';
+        document.getElementById('feedback').disabled = true;
+    }).catch(function() {
+        document.getElementById('status').textContent = 'Failed to send — use CLI fallback below.';
+        document.getElementById('status').style.color = '#ff4444';
+        btn.disabled = false;
+        btn.textContent = 'Submit Fix';
+    });
+}
+
+function copyPrompt() {
+    navigator.clipboard.writeText(document.getElementById('prompt').textContent)
+        .then(function() { document.getElementById('status').textContent = 'Copied!'; })
+        .catch(function() {
+            var range = document.createRange();
+            range.selectNode(document.getElementById('prompt'));
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            document.getElementById('status').textContent = 'Copied!';
+        });
+}
+</script>
+</body></html>
