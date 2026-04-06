@@ -20,7 +20,7 @@ summary { color: #60a5fa; cursor: pointer; font-size: 14px; }
 </style>
 </head><body>
 <h1>REJECTED</h1>
-<h2>Baby Caught Mom Adding &quot;Single&quot; Back to Her Instagram Bio While Dad Was in the Next Room</h2>
+<h2>Baby caught Mom practicing her &#x27;surprised face&#x27; in the mirror before opening a gift she already peeked at three days ago</h2>
 <div class="status" id="status">Sending rejection...</div>
 
 <p style="text-align:center; margin-bottom:8px;">What needs to be fixed?</p>
@@ -31,22 +31,22 @@ summary { color: #60a5fa; cursor: pointer; font-size: 14px; }
 <summary>Advanced: CLI fallback (if Submit doesn't work)</summary>
 <div class="prompt-box" id="prompt">I need to fix a rejected YouTube Short for @babyspillz.
 
-Job ID: baby_006_13ac
+Job ID: baby_006_c2ed
 Channel: babyspillz
 Episode: EP006
-Topic: Baby Caught Mom Adding &quot;Single&quot; Back to Her Instagram Bio While Dad Was in the Next Room
+Topic: Baby caught Mom practicing her &#x27;surprised face&#x27; in the mirror before opening a gift she already peeked at three days ago
 Episode directory: /Users/dylanireland/Desktop/ai-empire/channels/babyspillz/episodes/ep006
 
 I&#x27;m going to tell you what I didn&#x27;t like. After I do, run this command to queue the fix:
 
-cd ~/Desktop/ai-empire &amp;&amp; venv/bin/python3 pipeline/cli.py fix baby_006_13ac &quot;PASTE MY FEEDBACK HERE&quot;
+cd ~/Desktop/ai-empire &amp;&amp; venv/bin/python3 pipeline/cli.py fix baby_006_c2ed &quot;PASTE MY FEEDBACK HERE&quot;
 
 The daemon will pick it up, rewrite the script with my feedback, re-produce the video, and send me another review notification.</div>
 <button class="btn btn-copy" onclick="copyPrompt()">Copy Prompt for Claude Code</button>
 </details>
 <script>
 var NTFY = 'https://ntfy.sh/ai-empire-dylan-inbox';
-var JOB_ID = 'baby_006_13ac';
+var JOB_ID = 'baby_006_c2ed';
 
 // Auto-send REJECT to ntfy inbox when page opens — ONCE per job (localStorage guard)
 (function() {
@@ -59,7 +59,7 @@ var JOB_ID = 'baby_006_13ac';
     fetch(NTFY, {
         method: 'POST',
         headers: {'Title': 'Pipeline Response'},
-        body: 'REJECT baby_006_13ac'
+        body: 'REJECT baby_006_c2ed'
     }).then(function() {
         localStorage.setItem(rejectKey, Date.now());
         document.getElementById('status').textContent = 'Rejected! Tell me what to fix:';
