@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Reject: babyspillz ep001</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
+    background: #0f172a; color: #e2e8f0;
+    padding: 16px; max-width: 600px; margin: 0 auto;
+    -webkit-text-size-adjust: 100%;
+  }
+  h1 { color: #38bdf8; font-size: 22px; margin-bottom: 4px; }
+  .subtitle { color: #94a3b8; font-size: 14px; margin-bottom: 16px; }
+  .video-wrap { margin-bottom: 20px; }
+  .section-heading {
+    color: #38bdf8; font-size: 15px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin: 20px 0 10px; padding-bottom: 6px;
+    border-bottom: 1px solid #1e293b;
+  }
+  .scene-block {
+    background: #1e293b; border: 1px solid #334155;
+    border-radius: 10px; padding: 14px; margin-bottom: 10px;
+    transition: border-color 0.2s;
+  }
+  .scene-block.active { border-color: #f87171; }
+  .scene-toggle {
+    display: flex; align-items: center; gap: 10px;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  .scene-toggle input[type="checkbox"] {
+    width: 22px; height: 22px; accent-color: #f87171;
+    flex-shrink: 0;
+  }
+  .scene-title {
+    font-size: 17px; font-weight: 600; color: #f1f5f9;
+  }
+  .issue-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 6px 12px; margin-top: 12px; padding-top: 10px;
+    border-top: 1px solid #334155;
+  }
+  .issue-label {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 14px; color: #cbd5e1; padding: 6px 0;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  .issue-label input[type="checkbox"] {
+    width: 18px; height: 18px; accent-color: #38bdf8;
+    flex-shrink: 0;
+  }
+  .notes-area {
+    width: 100%; min-height: 80px; background: #1e293b;
+    border: 1px solid #334155; border-radius: 10px;
+    color: #e2e8f0; font-size: 15px; padding: 12px;
+    resize: vertical; font-family: inherit;
+    margin-top: 8px;
+  }
+  .notes-area:focus { outline: none; border-color: #38bdf8; }
+  .notes-area::placeholder { color: #64748b; }
+  .submit-btn {
+    display: block; width: 100%; padding: 16px;
+    background: #ef4444; color: white;
+    font-size: 17px; font-weight: 700;
+    border: none; border-radius: 12px;
+    cursor: pointer; margin-top: 20px;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .submit-btn:active { transform: scale(0.98); background: #dc2626; }
+  .submit-btn:disabled { background: #475569; cursor: not-allowed; transform: none; }
+  .submit-btn.sent { background: #16a34a; }
+  .status-msg {
+    text-align: center; margin-top: 12px;
+    font-size: 14px; color: #94a3b8; min-height: 20px;
+  }
+  .status-msg.error { color: #f87171; }
+  .status-msg.success { color: #4ade80; }
+  .job-id { font-family: monospace; font-size: 12px; color: #64748b; }
+</style>
+</head>
+<body>
+<h1>Rejection Details</h1>
+<p class="subtitle">babyspillz &mdash; Episode 001</p>
+<p class="job-id">babyspillz_ep001</p>
+
+
+    <div class="video-wrap">
+      <video src="https://d.uguu.se/uygBbVeM.mp4" controls playsinline
+             preload="metadata"
+             style="width:100%;border-radius:10px;"></video>
+    </div>
+
+
+<div class="section-heading">Which scenes have issues?</div>
+
+        <div class="scene-block" id="scene-block-1">
+          <label class="scene-toggle">
+            <input type="checkbox" class="scene-cb" data-scene="1"
+                   onchange="toggleScene(1)">
+            <span class="scene-title">Scene 1</span>
+          </label>
+          <div class="issue-grid" id="issues-1" style="display:none;">
+            <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="1" data-issue="hook_text"> Hook text</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="1" data-issue="lip_sync"> Lip sync</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="1" data-issue="audio_quality"> Audio quality</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="1" data-issue="visual_glitch"> Visual glitch</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="1" data-issue="caption_mismatch"> Caption mismatch</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="1" data-issue="character_inconsistency"> Character inconsistency</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="1" data-issue="background_issue"> Background issue</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="1" data-issue="green_bleed"> Green bleed</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="1" data-issue="logo_issue"> Logo missing/wrong</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="1" data-issue="timing_off"> Timing off</label>
+
+          </div>
+        </div>
+
+        <div class="scene-block" id="scene-block-2">
+          <label class="scene-toggle">
+            <input type="checkbox" class="scene-cb" data-scene="2"
+                   onchange="toggleScene(2)">
+            <span class="scene-title">Scene 2</span>
+          </label>
+          <div class="issue-grid" id="issues-2" style="display:none;">
+            <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="2" data-issue="hook_text"> Hook text</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="2" data-issue="lip_sync"> Lip sync</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="2" data-issue="audio_quality"> Audio quality</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="2" data-issue="visual_glitch"> Visual glitch</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="2" data-issue="caption_mismatch"> Caption mismatch</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="2" data-issue="character_inconsistency"> Character inconsistency</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="2" data-issue="background_issue"> Background issue</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="2" data-issue="green_bleed"> Green bleed</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="2" data-issue="logo_issue"> Logo missing/wrong</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="2" data-issue="timing_off"> Timing off</label>
+
+          </div>
+        </div>
+
+        <div class="scene-block" id="scene-block-3">
+          <label class="scene-toggle">
+            <input type="checkbox" class="scene-cb" data-scene="3"
+                   onchange="toggleScene(3)">
+            <span class="scene-title">Scene 3</span>
+          </label>
+          <div class="issue-grid" id="issues-3" style="display:none;">
+            <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="3" data-issue="hook_text"> Hook text</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="3" data-issue="lip_sync"> Lip sync</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="3" data-issue="audio_quality"> Audio quality</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="3" data-issue="visual_glitch"> Visual glitch</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="3" data-issue="caption_mismatch"> Caption mismatch</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="3" data-issue="character_inconsistency"> Character inconsistency</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="3" data-issue="background_issue"> Background issue</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="3" data-issue="green_bleed"> Green bleed</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="3" data-issue="logo_issue"> Logo missing/wrong</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="3" data-issue="timing_off"> Timing off</label>
+
+          </div>
+        </div>
+
+
+<div class="section-heading">Additional notes</div>
+<textarea class="notes-area" id="notes"
+  placeholder="e.g. skeleton mouth doesn't match audio in scene 2"></textarea>
+
+<div class="section-heading">Attach screenshot (optional)</div>
+<input type="file" id="screenshotInput" accept="image/*"
+  style="display:none" onchange="handleScreenshot(this)">
+<button class="screenshot-btn" onclick="document.getElementById('screenshotInput').click()"
+  style="background:#334155;color:#e2e8f0;border:2px dashed #475569;border-radius:8px;padding:16px;width:100%;cursor:pointer;font-size:16px;margin-bottom:12px;">
+  Tap to attach screenshot
+</button>
+<div id="screenshotPreview" style="display:none;margin-bottom:12px;">
+  <img id="screenshotImg" style="max-width:100%;border-radius:8px;border:1px solid #475569;">
+  <div style="color:#94a3b8;font-size:13px;margin-top:4px;" id="screenshotStatus"></div>
+</div>
+
+<button class="submit-btn" id="submitBtn" onclick="submitRejection()">
+  Submit Rejection
+</button>
+<div class="status-msg" id="statusMsg"></div>
+
+<script>
+var JOB_ID = "babyspillz_ep001";
+var NTFY_URL = "https://ntfy.sh/ai-empire-dylan-inbox";
+var screenshotUrl = '';
+
+function handleScreenshot(input) {
+  if (!input.files || !input.files[0]) return;
+  var file = input.files[0];
+  var preview = document.getElementById('screenshotPreview');
+  var img = document.getElementById('screenshotImg');
+  var status = document.getElementById('screenshotStatus');
+
+  // Show preview
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    img.src = e.target.result;
+    preview.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+
+  // Upload to Imgur (anonymous, CORS-friendly)
+  status.textContent = 'Uploading...';
+  var reader2 = new FileReader();
+  reader2.onload = function(e2) {
+    // Extract base64 data (strip the data:image/...;base64, prefix)
+    var b64 = e2.target.result.split(',')[1];
+    fetch('https://api.imgur.com/3/image', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Client-ID 546c25a59c58ad7',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ image: b64, type: 'base64' })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.data && data.data.link) {
+        screenshotUrl = data.data.link;
+        status.textContent = 'Uploaded';
+        status.style.color = '#22c55e';
+      } else {
+        status.textContent = 'Upload failed';
+        status.style.color = '#ef4444';
+      }
+    })
+    .catch(function(err) {
+      status.textContent = 'Upload failed: ' + err.message;
+      status.style.color = '#ef4444';
+    });
+  };
+  reader2.readAsDataURL(file);
+}
+
+function toggleScene(n) {
+  var cb = document.querySelector('.scene-cb[data-scene="' + n + '"]');
+  var block = document.getElementById('scene-block-' + n);
+  var issues = document.getElementById('issues-' + n);
+  if (cb.checked) {
+    block.classList.add('active');
+    issues.style.display = 'grid';
+  } else {
+    block.classList.remove('active');
+    issues.style.display = 'none';
+    // Uncheck all issue checkboxes for this scene
+    var issueCbs = issues.querySelectorAll('.issue-cb');
+    for (var i = 0; i < issueCbs.length; i++) {
+      issueCbs[i].checked = false;
+    }
+  }
+}
+
+function submitRejection() {
+  var btn = document.getElementById('submitBtn');
+  var msg = document.getElementById('statusMsg');
+
+  // Collect selected scenes
+  var scenes = [];
+  var sceneCbs = document.querySelectorAll('.scene-cb:checked');
+  for (var i = 0; i < sceneCbs.length; i++) {
+    scenes.push(parseInt(sceneCbs[i].getAttribute('data-scene')));
+  }
+
+  if (scenes.length === 0) {
+    msg.textContent = 'Select at least one scene with issues.';
+    msg.className = 'status-msg error';
+    return;
+  }
+
+  // Collect selected issues (across all checked scenes)
+  var issueSet = {};
+  var issueCbs = document.querySelectorAll('.issue-cb:checked');
+  for (var i = 0; i < issueCbs.length; i++) {
+    issueSet[issueCbs[i].getAttribute('data-issue')] = true;
+  }
+  var issues = Object.keys(issueSet);
+
+  if (issues.length === 0) {
+    msg.textContent = 'Select at least one issue category.';
+    msg.className = 'status-msg error';
+    return;
+  }
+
+  var notes = document.getElementById('notes').value.trim();
+  // Replace newlines with spaces to keep the ntfy message single-line-ish
+  notes = notes.replace(/\n/g, ' ');
+
+  var body = 'REJECT ' + JOB_ID +
+    ' SCENES:' + scenes.join(',') +
+    ' ISSUES:' + issues.join(',') +
+    (notes ? ' NOTES:' + notes : '') +
+    (screenshotUrl ? ' IMG:' + screenshotUrl : '');
+
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  msg.textContent = '';
+  msg.className = 'status-msg';
+
+  fetch(NTFY_URL, {
+    method: 'POST',
+    headers: {'Content-Type': 'text/plain'},
+    body: body
+  })
+  .then(function(resp) {
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    btn.textContent = 'Sent';
+    btn.classList.add('sent');
+    msg.textContent = 'Rejection submitted. You can close this page.';
+    msg.className = 'status-msg success';
+  })
+  .catch(function(err) {
+    btn.disabled = false;
+    btn.textContent = 'Submit Rejection';
+    msg.textContent = 'Failed to send: ' + err.message + '. Try again.';
+    msg.className = 'status-msg error';
+  });
+}
+</script>
+</body>
+</html>
