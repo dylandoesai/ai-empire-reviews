@@ -55,7 +55,7 @@
 
     <div id="ranking-section">
         <h2 style="margin-bottom:12px;">Rank this video:</h2>
-        <button class="rank-btn" onclick="submitRank(1)" style="background:#FFD700;color:#000;">🥇 #1 — Top Pick (9 AM)</button><button class="rank-btn" onclick="submitRank(2)" style="background:#C0C0C0;color:#000;">🥈 #2 — Strong (2 PM)</button><button class="rank-btn" onclick="submitRank(3)" style="background:#CD7F32;">🥉 #3 — Solid (7 PM)</button><button class="rank-btn" onclick="submitRank(4)" style="background:#475569;">4️⃣ #4 — Bonus (11:30 AM)</button><button class="rank-btn" onclick="submitRank(5)" style="background:#334155;">5️⃣ #5 — Bonus (4:30 PM)</button>
+        <button class="rank-btn" onclick="submitRank(2)" style="background:#C0C0C0;color:#000;">🥈 #2 — Strong (2 PM)</button><button class="rank-btn" onclick="submitRank(3)" style="background:#CD7F32;">🥉 #3 — Solid (7 PM)</button><button class="rank-btn" onclick="submitRank(4)" style="background:#475569;">4️⃣ #4 — Bonus (11:30 AM)</button><button class="rank-btn" onclick="submitRank(5)" style="background:#334155;">5️⃣ #5 — Bonus (4:30 PM)</button>
         <button class="reject-btn" onclick="submitReject()">❌ Reject — Open Fix Notes</button>
     </div>
 
@@ -76,7 +76,7 @@
         var SERIES = 'boneroasts';
         var BATCH = 'batch_1776664405';
         var EPISODE = 'ep001';
-        var REJECT_URL = 'https://dylandoesai.github.io/ai-empire-reviews/reject_boneroasts_ep001.html';
+        var REJECT_URL = '';
         var selectedRank = 0;
 
         function submitRank(rank) {
