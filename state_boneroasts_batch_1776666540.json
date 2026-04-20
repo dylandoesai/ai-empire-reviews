@@ -1,0 +1,46 @@
+{
+  "series": "boneroasts",
+  "batch_id": "batch_1776666540",
+  "created_at": "2026-04-20T06:29:12Z",
+  "videos": [
+    {
+      "series": "boneroasts",
+      "episode": "ep001",
+      "hook": "17 supplements. Mouth taped shut.",
+      "topic": "pixar style bedroom with warm lamp glow casting long shadows on a neat nightstan",
+      "score": 95,
+      "video_path": "series/boneroasts/episodes/ep001/boneroasts_final.mp4",
+      "dir_name": "ep001",
+      "production_time": "10.2 min",
+      "preview_url": "https://n.uguu.se/EpBdSJic.mp4"
+    },
+    {
+      "series": "boneroasts",
+      "episode": "ep002",
+      "hook": "Sleep score: 34. Ring cost $300.",
+      "topic": "pixar style dimly lit bedroom at 11:47 PM with warm amber lamp glow \u2014 skinny lat",
+      "score": 93,
+      "video_path": "series/boneroasts/episodes/ep002/boneroasts_final.mp4",
+      "dir_name": "ep002",
+      "production_time": "10.2 min",
+      "preview_url": "https://d.uguu.se/ZiwmdmZR.mp4"
+    }
+  ],
+  "rankings": {
+    "ep001": {
+      "rank": 4,
+      "bonus": false
+    }
+  },
+  "used_ranks": [
+    3,
+    4
+  ],
+  "available_ranks": [
+    1,
+    2,
+    5
+  ],
+  "rejected": [],
+  "status": "pending"
+}
