@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <title>Rank: boneroasts — 68 degrees. A constitutional crisis.</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, system-ui, sans-serif; background: #0f172a; color: #e2e8f0;
+               max-width: 500px; margin: 0 auto; padding: 16px;
+               -webkit-text-size-adjust: 100%; }
+        h1 { font-size: 1.4em; color: #FFD700; margin-bottom: 4px; }
+        .subtitle { color: #94a3b8; font-size: 14px; margin-bottom: 12px; }
+        .info { background: #1e293b; padding: 15px; border-radius: 10px; margin: 12px 0;
+                 border: 1px solid #334155; }
+        .info p { margin: 5px 0; font-size: 15px; }
+        .score { font-size: 1.5em; color: #00ff88; font-weight: bold; }
+        video { width: 100%; border-radius: 10px; margin: 12px 0; }
+        .rank-btn { display: block; width: 100%; padding: 18px; margin: 8px 0;
+                     border: none; border-radius: 12px; font-size: 1.2em; font-weight: bold;
+                     color: #fff; cursor: pointer;
+                     -webkit-tap-highlight-color: transparent;
+                     transition: transform 0.1s; }
+        .rank-btn:active { transform: scale(0.98); }
+        .reject-btn { display: block; width: 100%; padding: 16px; margin: 20px 0 8px 0;
+                       background: #ef4444; border: none; border-radius: 12px;
+                       font-size: 1.1em; font-weight: 700; color: #fff; cursor: pointer;
+                       -webkit-tap-highlight-color: transparent; }
+        .reject-btn:active { transform: scale(0.98); background: #dc2626; }
+        .bonus-section { background: #2a1a4e; padding: 20px; border-radius: 12px; margin: 15px 0;
+                          border: 1px solid #4c1d95; }
+        .bonus-section h3 { color: #bb86fc; margin-bottom: 15px; }
+        .bonus-btn { display: inline-block; width: 48%; padding: 16px; margin: 1%;
+                      border: none; border-radius: 12px; font-size: 1.1em; font-weight: bold;
+                      color: #fff; cursor: pointer; }
+        .bonus-yes { background: #7c4dff; }
+        .bonus-no { background: #475569; }
+        .done { text-align: center; padding: 40px; }
+        .done h2 { color: #00ff88; }
+        #bonus-section { display: none; }
+        #done-section { display: none; }
+    </style>
+</head>
+<body>
+    <h1>BONEROASTS</h1>
+    <p class="subtitle">Episode 6 — 18.6 min</p>
+
+    <div class="info">
+        <p><strong>Hook:</strong> 68 degrees. A constitutional crisis.</p>
+        <p><strong>Topic:</strong> couples arguing about the thermostat like it's a constitutional amendment</p>
+        <p class="score">Score: 97/100</p>
+    </div>
+
+    <video controls playsinline preload='metadata'><source src='https://d.uguu.se/YJYHhyGQ.mp4' type='video/mp4'></video>
+
+    <div id="ranking-section">
+        <h2 style="margin-bottom:12px;">Rank this video:</h2>
+        <button class="rank-btn" onclick="submitRank(1)" style="background:#FFD700;color:#000;">🥇 #1 — Top Pick (9 AM)</button><button class="rank-btn" onclick="submitRank(2)" style="background:#C0C0C0;color:#000;">🥈 #2 — Strong (2 PM)</button><button class="rank-btn" onclick="submitRank(3)" style="background:#CD7F32;">🥉 #3 — Solid (7 PM)</button><button class="rank-btn" onclick="submitRank(4)" style="background:#475569;">4️⃣ #4 — Evergreen Archive</button><button class="rank-btn" onclick="submitRank(5)" style="background:#334155;">5️⃣ #5 — Evergreen Archive</button>
+        <button class="reject-btn" onclick="submitReject()">❌ Reject — Open Fix Notes</button>
+    </div>
+
+    <div id="bonus-section" class="bonus-section">
+        <h3>Archived as evergreen ✓</h3>
+        <p style="margin-bottom:15px;">Also post at a bonus timeslot?</p>
+        <button class="bonus-btn bonus-yes" onclick="submitBonus(true)">✅ Yes — Post as Bonus Too</button>
+        <button class="bonus-btn bonus-no" onclick="submitBonus(false)">📦 No — Archive Only</button>
+    </div>
+
+    <div id="done-section" class="done">
+        <h2 id="done-msg">Ranked!</h2>
+        <p>Close this page and open the next ntfy.</p>
+    </div>
+
+    <script>
+        var NTFY_TOPIC = 'ai-empire-ranking';
+        var SERIES = 'boneroasts';
+        var BATCH = 'batch_1776672100';
+        var EPISODE = '6';
+        var REJECT_URL = 'https://dylandoesai.github.io/ai-empire-reviews/reject_boneroasts_ep006.html';
+        var selectedRank = 0;
+
+        function submitRank(rank) {
+            selectedRank = rank;
+            document.getElementById('ranking-section').style.display = 'none';
+
+            if (rank >= 4) {
+                document.getElementById('bonus-section').style.display = 'block';
+                document.getElementById('bonus-rank').textContent = rank;
+            } else {
+                sendRank(rank, false);
+                document.getElementById('done-section').style.display = 'block';
+                document.getElementById('done-msg').textContent = 'Ranked #' + rank + ' — Posting slot ' + rank + '!';
+            }
+        }
+
+        function submitBonus(isBonus) {
+            document.getElementById('bonus-section').style.display = 'none';
+            document.getElementById('done-section').style.display = 'block';
+            document.getElementById('done-msg').textContent = isBonus
+                ? 'Archived + bonus post scheduled!'
+                : 'Archived as evergreen.';
+            sendRank(selectedRank, isBonus);
+        }
+
+        function sendRank(rank, bonus) {
+            fetch('https://ntfy.sh/' + NTFY_TOPIC, {
+                method: 'POST',
+                body: JSON.stringify({
+                    action: 'rank', series: SERIES, batch: BATCH,
+                    episode: EPISODE, rank: rank, bonus: bonus
+                }),
+                headers: { 'Content-Type': 'application/json' }
+            }).catch(function(e) { console.error('rank send failed:', e); });
+        }
+
+        // On load: poll ntfy cache for latest state update (no CDN delay)
+        (function() {
+            // ntfy cached messages endpoint — returns recent messages, no CDN cache
+            var stateUrl = 'https://ntfy.sh/ai-empire-state-' + SERIES + '/json?poll=1&since=24h';
+            fetch(stateUrl).then(function(r) { return r.text(); })
+            .then(function(text) {
+                // Parse NDJSON (one JSON object per line), find latest state for our batch
+                var lines = text.trim().split('\n');
+                var latestState = null;
+                for (var i = lines.length - 1; i >= 0; i--) {
+                    try {
+                        var msg = JSON.parse(lines[i]);
+                        if (msg.event === 'message') {
+                            var data = JSON.parse(msg.message);
+                            if (data.batch === BATCH && data.used_ranks) {
+                                latestState = data;
+                                break;
+                            }
+                        }
+                    } catch(e) {}
+                }
+                if (!latestState) return;
+                var used = latestState.used_ranks || [];
+                var btns = document.querySelectorAll('.rank-btn');
+                for (var i = 0; i < btns.length; i++) {
+                    var m = btns[i].getAttribute('onclick').match(/submitRank[(]([0-9])[)]/);
+                    if (m && used.indexOf(parseInt(m[1])) >= 0) {
+                        btns[i].style.display = 'none';
+                    }
+                }
+                var rankings = latestState.rankings || {};
+                if (rankings[EPISODE]) {
+                    document.getElementById('ranking-section').style.display = 'none';
+                    document.getElementById('done-section').style.display = 'block';
+                    document.getElementById('done-msg').textContent = 'Already ranked #' + rankings[EPISODE].rank;
+                }
+            }).catch(function() { /* no state yet, show all ranks */ });
+        })();
+
+        function submitReject() {
+            // Send reject to ntfy
+            fetch('https://ntfy.sh/' + NTFY_TOPIC, {
+                method: 'POST',
+                body: JSON.stringify({
+                    action: 'reject', series: SERIES, batch: BATCH, episode: EPISODE
+                }),
+                headers: { 'Content-Type': 'application/json' }
+            }).catch(function(e) { console.error('reject send failed:', e); });
+
+            // Open the surgical fix rejection page
+            if (REJECT_URL) {
+                window.location.href = REJECT_URL;
+            } else {
+                document.getElementById('ranking-section').style.display = 'none';
+                document.getElementById('done-section').style.display = 'block';
+                document.getElementById('done-msg').textContent = 'Rejected.';
+            }
+        }
+    </script>
+</body>
+</html>
