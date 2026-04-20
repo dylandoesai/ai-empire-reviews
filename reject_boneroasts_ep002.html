@@ -89,7 +89,7 @@
 
 
     <div class="video-wrap">
-      <video src="https://h.uguu.se/UYvzawXx.mp4" controls playsinline
+      <video src="https://h.uguu.se/nEBSqGow.mp4" controls playsinline
              preload="metadata"
              style="width:100%;border-radius:10px;"></video>
     </div>
@@ -104,12 +104,15 @@
             <span class="scene-title">Scene 1</span>
           </label>
           <div class="issue-grid" id="issues-1" style="display:none;">
-            <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="1" data-issue="lip_sync"> Lip sync</label>
+            <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="1" data-issue="hook_text"> Hook text</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="1" data-issue="lip_sync"> Lip sync</label>
 <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="1" data-issue="audio_quality"> Audio quality</label>
 <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="1" data-issue="visual_glitch"> Visual glitch</label>
 <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="1" data-issue="caption_mismatch"> Caption mismatch</label>
 <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="1" data-issue="character_inconsistency"> Character inconsistency</label>
 <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="1" data-issue="background_issue"> Background issue</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="1" data-issue="green_bleed"> Green bleed</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="1" data-issue="logo_issue"> Logo missing/wrong</label>
 <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="1" data-issue="timing_off"> Timing off</label>
 
           </div>
@@ -122,12 +125,15 @@
             <span class="scene-title">Scene 2</span>
           </label>
           <div class="issue-grid" id="issues-2" style="display:none;">
-            <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="2" data-issue="lip_sync"> Lip sync</label>
+            <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="2" data-issue="hook_text"> Hook text</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="2" data-issue="lip_sync"> Lip sync</label>
 <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="2" data-issue="audio_quality"> Audio quality</label>
 <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="2" data-issue="visual_glitch"> Visual glitch</label>
 <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="2" data-issue="caption_mismatch"> Caption mismatch</label>
 <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="2" data-issue="character_inconsistency"> Character inconsistency</label>
 <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="2" data-issue="background_issue"> Background issue</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="2" data-issue="green_bleed"> Green bleed</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="2" data-issue="logo_issue"> Logo missing/wrong</label>
 <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="2" data-issue="timing_off"> Timing off</label>
 
           </div>
@@ -140,12 +146,15 @@
             <span class="scene-title">Scene 3</span>
           </label>
           <div class="issue-grid" id="issues-3" style="display:none;">
-            <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="3" data-issue="lip_sync"> Lip sync</label>
+            <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="3" data-issue="hook_text"> Hook text</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="3" data-issue="lip_sync"> Lip sync</label>
 <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="3" data-issue="audio_quality"> Audio quality</label>
 <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="3" data-issue="visual_glitch"> Visual glitch</label>
 <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="3" data-issue="caption_mismatch"> Caption mismatch</label>
 <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="3" data-issue="character_inconsistency"> Character inconsistency</label>
 <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="3" data-issue="background_issue"> Background issue</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="3" data-issue="green_bleed"> Green bleed</label>
+<label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="3" data-issue="logo_issue"> Logo missing/wrong</label>
 <label class="issue-label"><input type="checkbox" class="issue-cb" data-scene="3" data-issue="timing_off"> Timing off</label>
 
           </div>
@@ -156,6 +165,18 @@
 <textarea class="notes-area" id="notes"
   placeholder="e.g. skeleton mouth doesn't match audio in scene 2"></textarea>
 
+<div class="section-heading">Attach screenshot (optional)</div>
+<input type="file" id="screenshotInput" accept="image/*"
+  style="display:none" onchange="handleScreenshot(this)">
+<button class="screenshot-btn" onclick="document.getElementById('screenshotInput').click()"
+  style="background:#334155;color:#e2e8f0;border:2px dashed #475569;border-radius:8px;padding:16px;width:100%;cursor:pointer;font-size:16px;margin-bottom:12px;">
+  Tap to attach screenshot
+</button>
+<div id="screenshotPreview" style="display:none;margin-bottom:12px;">
+  <img id="screenshotImg" style="max-width:100%;border-radius:8px;border:1px solid #475569;">
+  <div style="color:#94a3b8;font-size:13px;margin-top:4px;" id="screenshotStatus"></div>
+</div>
+
 <button class="submit-btn" id="submitBtn" onclick="submitRejection()">
   Submit Rejection
 </button>
@@ -164,6 +185,55 @@
 <script>
 var JOB_ID = "boneroasts_ep002";
 var NTFY_URL = "https://ntfy.sh/ai-empire-dylan-inbox";
+var screenshotUrl = '';
+
+function handleScreenshot(input) {
+  if (!input.files || !input.files[0]) return;
+  var file = input.files[0];
+  var preview = document.getElementById('screenshotPreview');
+  var img = document.getElementById('screenshotImg');
+  var status = document.getElementById('screenshotStatus');
+
+  // Show preview
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    img.src = e.target.result;
+    preview.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+
+  // Upload to Imgur (anonymous, CORS-friendly)
+  status.textContent = 'Uploading...';
+  var reader2 = new FileReader();
+  reader2.onload = function(e2) {
+    // Extract base64 data (strip the data:image/...;base64, prefix)
+    var b64 = e2.target.result.split(',')[1];
+    fetch('https://api.imgur.com/3/image', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Client-ID 546c25a59c58ad7',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ image: b64, type: 'base64' })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.data && data.data.link) {
+        screenshotUrl = data.data.link;
+        status.textContent = 'Uploaded';
+        status.style.color = '#22c55e';
+      } else {
+        status.textContent = 'Upload failed';
+        status.style.color = '#ef4444';
+      }
+    })
+    .catch(function(err) {
+      status.textContent = 'Upload failed: ' + err.message;
+      status.style.color = '#ef4444';
+    });
+  };
+  reader2.readAsDataURL(file);
+}
 
 function toggleScene(n) {
   var cb = document.querySelector('.scene-cb[data-scene="' + n + '"]');
@@ -221,7 +291,8 @@ function submitRejection() {
   var body = 'REJECT ' + JOB_ID +
     ' SCENES:' + scenes.join(',') +
     ' ISSUES:' + issues.join(',') +
-    (notes ? ' NOTES:' + notes : '');
+    (notes ? ' NOTES:' + notes : '') +
+    (screenshotUrl ? ' IMG:' + screenshotUrl : '');
 
   btn.disabled = true;
   btn.textContent = 'Sending...';
