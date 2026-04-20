@@ -57,7 +57,7 @@
 
     <div id="ranking-section">
         <h2 style="margin-bottom:12px;">Rank this video:</h2>
-        <button class="rank-btn" onclick="submitRank(1)" style="background:#FFD700;color:#000;">🥇 #1 — Top Pick (9 AM)</button><button class="rank-btn" onclick="submitRank(2)" style="background:#C0C0C0;color:#000;">🥈 #2 — Strong (2 PM)</button><button class="rank-btn" onclick="submitRank(4)" style="background:#475569;">4️⃣ #4 — Evergreen Archive</button><button class="rank-btn" onclick="submitRank(5)" style="background:#334155;">5️⃣ #5 — Evergreen Archive</button>
+        <button class="rank-btn" onclick="submitRank(1)" style="background:#FFD700;color:#000;">🥇 #1 — Top Pick (9 AM)</button><button class="rank-btn" onclick="submitRank(2)" style="background:#C0C0C0;color:#000;">🥈 #2 — Strong (2 PM)</button><button class="rank-btn" onclick="submitRank(5)" style="background:#334155;">5️⃣ #5 — Evergreen Archive</button>
         <button class="reject-btn" onclick="submitReject()">❌ Reject — Open Fix Notes</button>
     </div>
 
@@ -115,17 +115,10 @@
             }).catch(function(e) { console.error('rank send failed:', e); });
         }
 
-        // On load: fetch manifest → versioned state → hide used ranks
+        // On load: fetch live state and hide used ranks (beats CDN cache)
         (function() {
-            var manifestUrl = 'https://dylandoesai.github.io/ai-empire-reviews/state_boneroasts_batch_1776666540_latest.json?t=' + Date.now();
-            var baseUrl = 'https://dylandoesai.github.io/ai-empire-reviews/';
-            fetch(manifestUrl).then(function(r) { return r.json(); })
-            .then(function(manifest) {
-                // Fetch the versioned state file (unique URL = no cache)
-                return fetch(baseUrl + manifest.file);
-            })
-            .then(function(r) { return r.json(); })
-            .then(function(state) {
+            var stateUrl = 'https://dylandoesai.github.io/ai-empire-reviews/state_boneroasts_batch_1776666540.json?t=' + Date.now();
+            fetch(stateUrl).then(function(r) { return r.json(); }).then(function(state) {
                 var used = state.used_ranks || [];
                 var btns = document.querySelectorAll('.rank-btn');
                 for (var i = 0; i < btns.length; i++) {
@@ -134,6 +127,7 @@
                         btns[i].style.display = 'none';
                     }
                 }
+                // If this episode is already ranked/rejected, show done
                 var rankings = state.rankings || {};
                 var rejected = state.rejected || [];
                 if (rankings[EPISODE] || rejected.indexOf(EPISODE) >= 0) {
