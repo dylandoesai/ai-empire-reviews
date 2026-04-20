@@ -26,14 +26,20 @@
       "preview_url": "https://n.uguu.se/oJhwTdxy.mp4"
     }
   ],
-  "rankings": {},
-  "used_ranks": [],
+  "rankings": {
+    "ep001": {
+      "rank": 5,
+      "bonus": false
+    }
+  },
+  "used_ranks": [
+    5
+  ],
   "available_ranks": [
     1,
     2,
     3,
-    4,
-    5
+    4
   ],
   "rejected": [],
   "status": "pending"
